@@ -1,0 +1,121 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Yabancı Hasta KİT</title>
+    <!-- favicon
+    ============================================ -->
+    <link rel="shortcut icon" type="image/x-icon" href="/Content/img/favicon.ico">
+    <!-- Google Fonts
+        ============================================ -->
+    <link href="https://fonts.googleapis.com/css?family=Play:400,700" rel="stylesheet">
+    <!-- Bootstrap CSS
+        ============================================ -->
+    <link rel="stylesheet" href="/Content/css/bootstrap.min.css">
+    <!-- Bootstrap CSS
+        ============================================ -->
+    <link rel="stylesheet" href="/Content/css/font-awesome.min.css">
+    <!-- owl.carousel CSS
+        ============================================ -->
+    <link rel="stylesheet" href="/Content/css/owl.carousel.css">
+    <link rel="stylesheet" href="/Content/css/owl.theme.css">
+    <link rel="stylesheet" href="/Content/css/owl.transitions.css">
+    <!-- animate CSS
+        ============================================ -->
+    <link rel="stylesheet" href="/Content/css/animate.css">
+    <!-- normalize CSS
+        ============================================ -->
+    <link rel="stylesheet" href="/Content/css/normalize.css">
+    <!-- meanmenu icon CSS
+        ============================================ -->
+    <link rel="stylesheet" href="/Content/css/meanmenu.min.css">
+    <!-- main CSS
+        ============================================ -->
+    <link rel="stylesheet" href="/Content/css/main.css">
+    <!-- morrisjs CSS
+        ============================================ -->
+    <link rel="stylesheet" href="/Content/css/morrisjs/morris.css">
+    <!-- mCustomScrollbar CSS
+        ============================================ -->
+    <link rel="stylesheet" href="/Content/css/scrollbar/jquery.mCustomScrollbar.min.css">
+    <!-- metisMenu CSS
+        ============================================ -->
+    <link rel="stylesheet" href="/Content/css/metisMenu/metisMenu.min.css">
+    <link rel="stylesheet" href="/Content/css/metisMenu/metisMenu-vertical.css">
+    <!-- calendar CSS
+        ============================================ -->
+    <link rel="stylesheet" href="/Content/css/calendar/fullcalendar.min.css">
+    <link rel="stylesheet" href="/Content/css/calendar/fullcalendar.print.min.css">
+    <!-- style CSS
+        ============================================ -->
+    <link rel="stylesheet" href="/Content/css/style.css">
+    <!-- responsive CSS
+        ============================================ -->
+    <link rel="stylesheet" href="/Content/css/responsive.css">
+    <!-- modernizr JS
+        ============================================ -->
+    <script src="/Scripts/js/vendor/modernizr-2.8.3.min.js"></script>
+    @RenderSection("styles", false)
+</head>
+<body class="mini-navbar">
+    <!--[if lt IE 8]>
+           <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+       <![endif]-->
+    @Html.Partial("_LeftSideBar")
+    <!-- Start Welcome area -->
+    <div class="all-content-wrapper">
+        @Html.Partial("_ContainerFluid")
+        @Html.Partial("_Header")
+        <div class="container">
+            <div class="row">
+                <div class="col-12">@RenderBody()</div></div> </div>
+        @Html.Partial("_Footer")
+
+    </div>
+
+    
+    <script src="/Scripts/js/vendor/jquery-1.11.3.min.js"></script>
+     
+    <script src="/Scripts/js/bootstrap.min.js"></script>
+ 
+    @*<script src="/Scripts/js/wow.min.js"></script>*@
+     
+    @*<script src="/Scripts/js/jquery-price-slider.js"></script>*@
+ 
+    <script src="/Scripts/js/jquery.meanmenu.js"></script>
+ 
+    @*<script src="/Scripts/js/owl.carousel.min.js"></script>*@
+ 
+    <script src="/Scripts/js/jquery.sticky.js"></script>
+    
+    @*<script src="/Scripts/js/jquery.scrollUp.min.js"></script>*@
+ 
+    @*<script src="/Scripts/js/scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="/Scripts/js/scrollbar/mCustomScrollbar-active.js"></script>*@
+   
+    @*<script src="/Scripts/js/metisMenu/metisMenu.min.js"></script>
+    <script src="/Scripts/js/metisMenu/metisMenu-active.js"></script>*@
+   
+    @*<script src="/Scripts/js/morrisjs/raphael-min.js"></script>
+    <script src="/Scripts/js/morrisjs/morris.js"></script>
+    <script src="/Scripts/js/morrisjs/morris-active.js"></script>*@
+   
+    @*<script src="/Scripts/js/sparkline/jquery.sparkline.min.js"></script>
+    <script src="/Scripts/js/sparkline/jquery.charts-sparkline.js"></script>*@
+ 
+    @*<script src="/Scripts/js/calendar/moment.min.js"></script>*@
+    @*<script src="/Scripts/js/calendar/fullcalendar.min.js"></script>
+    <script src="/Scripts/js/calendar/fullcalendar-active.js"></script>*@
+    
+    @*<script src="/Scripts/js/plugins.js"></script>*@
+   
+    <script src="/Scripts/js/main.js"></script>
+    @RenderSection("scripts", false)
+</body>
+</html>

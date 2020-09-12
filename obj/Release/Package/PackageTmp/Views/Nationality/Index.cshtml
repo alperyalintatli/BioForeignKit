@@ -1,0 +1,75 @@
+﻿@model IEnumerable<BioForeignKit.Models.Nationalities>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-lg-12">
+    <a href="@Url.Action("Index","Home")" class="btn btn-warning" id="buttonWarning"><i class="fa fa-backward"></i>   Geri Dön</a>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="alert-icon shadow-reset wrap-alert-b">
+                <div class="alert-title">
+                    <h2></h2>
+                </div>
+                <div class="alert alert-info alert-st-two" role="alert">
+                    <i class="fa fa-info-circle adminpro-inform admin-check-pro admin-check-pro-none" aria-hidden="true"></i>
+                    <p class="message-mg-rt message-alert-none"><h4><strong>Uyruk Tablosu</strong></h4></p>
+                </div>
+
+            </div>
+            <div class="hpanel">
+                <div class="panel-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th><h3 style="color:orange">#</h3></th>
+                                <th><h3 style="color:orange">Uyruk</h3></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.Count() == 0)
+                            {
+                                <tr>
+                                    <td colspan="3"><h1 class="text-warning">Uyruk bulunmamaktadır!</h1></td>
+                                </tr>
+                            }
+                            else
+                            {
+                                byte number = 1;
+                                foreach (var nationality in Model)
+                                {
+                                    <tr>
+                                        <td><h4>@number</h4> </td>
+                                        <td><h4>@nationality.Nationality</h4></td>
+                                        <td>
+                                            @Html.ActionLink("Düzenle", "Edit", new { id = nationality.Id }, new { @class = "btn btn-primary",style="color:white"  }) 
+
+                                            @*Silme İşlemi
+                                               @Html.ActionLink("Sil", "Delete", new { id = nationality.Id }, new { @class = "btn btn-danger",style="color:white"  })
+                                                *@
+                                        </td>
+                                    </tr>
+                                    number++;
+                                }
+
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="3" align="right"><a href="@Url.Action("Create","Nationality")" style="color:white"  class="btn btn-success"><i class="fa fa-thumbs-up"></i>   Uyruk Ekle</a></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+
+
+
+
+
+                </div></div></div></div></div>
+

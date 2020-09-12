@@ -1,0 +1,126 @@
+﻿
+    <style>
+        .btn-outline-success{
+            float:right;
+            margin-right:5px;
+            background-color:yellow;
+        }
+    </style>
+
+<div class="header-advance-area">
+    <div class="header-top-area">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="header-top-wraper">
+                        <div class="row">
+                            <div class="col-lg-1 col-md-0 col-sm-1 col-xs-12">
+                                <div class="menu-switcher-pro">
+                                    <button type="button" id="sidebarCollapse" class="btn bar-button-pro header-drl-controller-btn btn-info navbar-btn">
+                                        <i class="fa fa-bars"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-11 col-md-12 col-sm-12 col-xs-12">
+                                <div class="header-right-info">
+                                    <ul class="nav navbar-nav mai-top-nav header-right-menu">
+                                        @if (Request.IsAuthenticated)
+                                        {
+                                         
+                                       
+                                            <li class="nav-item">
+                                                <a href="#" data-toggle="dropdown" role="button" aria-expanded="true" class="nav-link dropdown-toggle">
+                                                    <i class="fa fa-user adminpro-user-rounded header-riht-inf" aria-hidden="true"></i>
+                                                    <span class="admin-name">Hoşgeldiniz! @HttpContext.Current.User.Identity.Name </span>
+                                                    <i class="fa fa-angle-down adminpro-icon adminpro-down-arrow"></i>
+                                                </a>
+                                                <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated zoomIn">
+
+                                                    
+                                                    <li>
+                                                        <a href="@Url.Action("Index","Manage")"><span class="fa fa-cog author-log-ic"></span>Ayarlar</a>
+                                                    </li>
+                                                    <li>
+                                                        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post))
+                                                        {
+                                                            @Html.AntiForgeryToken()
+
+                                                            <button type="submit" class="btn btn-outline-success" > <span class="fa fa-lock author-log-ic"></span>Çıkış Yap</button>
+                                                        }
+
+                                                    </li>
+                                                </ul>
+                                            </li>
+
+
+                                        }
+                                        else
+                                        {
+
+                                            <li class="nav-item">
+                                                <a href="@Url.Action("Login","Account")" title="Giriş Yap" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><i class="fa fa-sign-in" aria-hidden="true"></i><span class="indicator-ms"></span></a>
+                                                <div role="menu" class="author-message-top dropdown-menu animated zoomIn">
+
+                                                </div>
+                                            </li>
+                                        }
+
+
+
+
+
+                                    </ul>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Mobile Menu start -->
+    <div class="mobile-menu-area">
+        <div class="container">
+            <div class="row">
+            </div>
+        </div>
+    </div>
+    <!-- Mobile Menu end -->
+    <div class="breadcome-area">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="breadcome-list">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                <div class="breadcome-heading">
+                                    <h6 style="color:greenyellow">@TempData["successPatientMailToDoctor"]</h6>
+                                    <h6 style="color:greenyellow">@TempData["successUpdatePassword"]</h6>
+                                    <h6 style="color:greenyellow">@TempData["successUpdateEmail"]</h6>
+                                    <h6 style="color:greenyellow">@TempData["successRoleCreate"]</h6>
+                                    <h6 style="color:greenyellow">@TempData["successRoleEdit"]</h6>
+                                    <h6 style="color:greenyellow">@TempData["successRoleDelete"]</h6>
+                                    <h6 style="color:greenyellow">@TempData["successNationalityDelete"]</h6>
+                                    <h6 style="color:greenyellow">@TempData["successNationalityEdit"]</h6>
+                                    <h6 style="color:greenyellow">@TempData["successNationalityRegister"]</h6>
+                                    <h6 style="color:greenyellow">@TempData["successDiagnosticDelete"]</h6>
+                                    <h6 style="color:greenyellow">@TempData["successDiagnosticEdit"]</h6>
+                                    <h6 style="color:greenyellow">@TempData["successDiagnosticAdd"]</h6>
+                                    <h6 style="color:greenyellow">@TempData["successPatientDelete"]</h6>
+                                    <h6 style="color:greenyellow">@TempData["successPatientEdit"]</h6>
+                                    <h6 style="color:greenyellow">@TempData["successPatientRegister"]</h6>
+                                    <h6 style="color:greenyellow">@TempData["successRegister"]</h6>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

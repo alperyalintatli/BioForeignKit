@@ -1,0 +1,94 @@
+﻿@model BioForeignKit.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="alert-icon shadow-reset wrap-alert-b">
+                <div class="alert-title">
+                    <h2></h2>
+                </div>
+                <div class="alert alert-info alert-st-two" role="alert">
+                    <i class="fa fa-info-circle adminpro-inform admin-check-pro admin-check-pro-none" aria-hidden="true"></i>
+                    <p class="message-mg-rt message-alert-none"><h4><strong>Yeni Kullanıcı Ekle</strong></h4></p>
+                </div>
+
+            </div>
+            <div class="hpanel">
+                <div class="panel-body">
+                    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "registerForm" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-group">
+                            @Html.Label("Email:", new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.Label("Kullanıcı Adı:", new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.Label("Şifre:", new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10">
+                                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.Label("Şifre Tekrar:", new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10">
+                                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                                @Html.Label("Rol:", new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @Html.DropDownList("RoleId", null, "--Rol Seçiniz--", htmlAttributes: new { @class = "form-control", id = "ChooseDiagnostic" })
+                                </div>
+                            </div>
+
+                      
+
+
+
+                        <div class="form-group col-lg-12">
+                            <div class="col-md-offset-2 col-md-10">
+                                <button type="submit" class="btn btn-success" id="btnSubmit" style="float:right"><i class="fa fa-thumbs-up"></i>     Kullanıcı Ekle</button>
+                            </div>
+                        </div>
+
+                    }
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $('#btnSubmit').on('click', function() {
+            var val = $("#registerForm").valid();
+            if (val===true) {
+                document.getElementById("btnSubmit").disabled = true;
+                document.getElementById("btnSubmit").innerHTML = "Lütfen bekleyiniz...";
+                $("#registerForm").submit();
+            }
+            console.log(val);
+        });
+
+    </script>
+}

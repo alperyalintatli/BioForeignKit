@@ -1,0 +1,46 @@
+﻿@model BioForeignKit.Models.ApplicationRole
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-lg-12">
+    <a href="@Url.Action("Index","Role")" class="btn btn-warning" id="buttonWarning"><i class="fa fa-backward"></i>   Geri Dön</a>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="alert-icon shadow-reset wrap-alert-b">
+                <div class="alert-title">
+                    <h2></h2>
+                </div>
+                <div class="alert alert-info alert-st-two" role="alert">
+                    <i class="fa fa-info-circle adminpro-inform admin-check-pro admin-check-pro-none" aria-hidden="true"></i>
+                    <p class="message-mg-rt message-alert-none"><h4><strong>Rol Sil</strong></h4><hr /> <h5>Seçili Öğeyi Silmek istediğinize emin misiniz?</h5></p>
+                </div>
+
+            </div>
+            <div class="hpanel">
+                <div class="panel-body">
+                    <dl class="dl-horizontal">
+                        <dt>
+                            @Html.DisplayName("İsim:")
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Name)
+                        </dd>
+
+                    </dl>
+
+                    @using (Html.BeginForm("DeleteRole", "Role", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.HiddenFor(model => model.Id)
+                        <div class="form-actions no-color">
+                            <input type="submit" value="Sil" style="color:white" class="btn btn-danger" /> 
+                        </div>
+                    }
+                </div></div></div></div></div>
+                

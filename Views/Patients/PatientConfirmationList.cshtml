@@ -1,0 +1,239 @@
+﻿@model IEnumerable<BioForeignKit.Models.Patients>
+@{
+    ViewBag.Title = "PatientConfirmationList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section styles {
+    <link href="~/Content/css/jquery-ui.min.css" rel="stylesheet" />
+    <link href="~/Content/css/data-table/jquery.dataTables.min.css" rel="stylesheet" />
+}
+
+<div class="col-lg-12">
+    <a href="@Url.Action("Index","Patients")" class="btn btn-warning" id="buttonWarning"><i class="fa fa-backward"></i>   Geri Dön</a>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="alert-icon shadow-reset wrap-alert-b">
+                <div class="alert-title">
+                    <h2></h2>
+                </div>
+                <div class="alert alert-info alert-st-two" role="alert">
+                    <i class="fa fa-info-circle adminpro-inform admin-check-pro admin-check-pro-none" aria-hidden="true"></i>
+                    <p class="message-mg-rt message-alert-none"><h4><strong>Gelen Hasta Tablosu</strong></h4></p>
+                </div>
+
+            </div>
+            <div class="hpanel">
+                <div class="form-group col-lg-12">
+                    <div class="col-lg-4">
+                        <input type="text" id="min" name="min" class="form-control" placeholder="Ara:Min. tarih" style="margin-bottom:15px;">
+                    </div>
+                    <div class="col-lg-4">
+                        <input type="text" id="max" name="max" class="form-control" placeholder="Ara:Max. tarih" style="margin-bottom:15px;">
+                    </div>
+
+                    <!-- Dynamic Table Start -->
+
+                    <table id="patientList" name="patientList" class="display" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Hasta Adı</th>
+                                <th>Tanı</th>
+                                <th>Uyruk</th>
+                                <th>Cinsiyet</th>
+                                <th>Doğum Tarihi</th>
+                                <th>Hastane Kayıt Tarih</th>
+                                @*<th>#</th>*@
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var patient in Model)
+                            {
+                                <tr>
+                                    <td>@patient.Name @patient.Surname</td>
+                                    <td>@patient.Diagnostics.DiagnosticName</td>
+                                    <td>@patient.Nationalities.Nationality</td>
+                                    <td>@patient.Genders.GenderName</td>
+                                    <td>@patient.Birthdate.Value.ToShortDateString()</td>
+                                    <td>@patient.IncomingPatientDate.Value.ToShortDateString()</td>
+                                    @*<td>
+                                        @Html.ActionLink(" ", "Details", new { id = patient.UserId }, new { @class = "btn btn-primary fa fa-info", title = "Hasta Detay" }) |
+                                        @Html.ActionLink(" ", "Edit", new { id = patient.UserId }, new { @class = "btn btn-primary fa fa-pencil", title = "Hasta Düzenle" }) |
+                                        @Html.ActionLink(" ", "Delete", new { id = patient.UserId }, new { @class = "btn btn-danger fa fa-trash", title = "Hasta Sil" })
+                                    </td>*@
+                                </tr>
+
+                            }
+
+
+
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Hasta Adı</th>
+                                <th>Tanı</th>
+                                <th>Uyruk</th>
+                            </tr>
+
+                        </tfoot>
+                    </table>
+
+                    <div class="panel-body"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+    <script src="~/Scripts/datatables.min.js"></script>
+    <script src="~/Scripts/dataTables.buttons.min.js"></script>
+    <script src="~/Scripts/jszip.min.js"></script>
+    <script src="~/Scripts/buttons.html5.min.js"></script>
+    <script src="~/Scripts/buttons.print.min.js"></script>
+    <script src="~/Scripts/buttons.colVis.min.js"></script>
+    <script src="~/Scripts/buttons.flash.min.js"></script>
+    <script src="~/Scripts/pdfmake.min.js"></script>
+    <script src="~/Scripts/vfs_fonts.js"></script>
+    <script>
+
+
+
+        $(document).ready(function () {
+            // Setup - add a text input to each footer cell
+            $('#patientList tfoot th').each(function () {
+                var title = $('#patientList thead th').eq($(this).index()).text();
+                $(this).html('<input type="text" class = "form-control" placeholder="Ara: ' + title + '" />');
+            });
+
+            $.fn.dataTable.ext.search.push(
+                function (settings, data, dataIndex) {
+                    var min = $('#min').datepicker('getDate');
+                    var max = $('#max').datepicker('getDate');
+
+                     var val = String(data[5]).split(".");
+                      var startDate = new Date(val[1]+"-"+val[0]+"-"+val[2]);
+                    if (min == null && max == null) return true;
+                    if (min == null && startDate <= max) return true;
+                    if (max == null && startDate >= min) return true;
+                    if (startDate <= max && startDate >= min) return true;
+                    return false;
+                }
+            );
+
+
+            // DataTable
+            var table = $('#patientList').DataTable({
+
+                "language": {
+                    "sDecimal": ",",
+                    "sEmptyTable": "Tabloda herhangi bir veri mevcut değil",
+                    "sInfo": "_TOTAL_ kayıttan _START_ - _END_ arasındaki kayıtlar gösteriliyor",
+                    "sInfoEmpty": "Kayıt yok",
+                    "sInfoFiltered": "(_MAX_ kayıt içerisinden bulunan)",
+                    "sInfoPostFix": "",
+                    "sInfoThousands": ".",
+                    "sLengthMenu": "Sayfada _MENU_ kayıt göster",
+                    "sLoadingRecords": "Yükleniyor...",
+                    "sProcessing": "İşleniyor...",
+                    "sSearch": "Ara:",
+                    "sZeroRecords": "Eşleşen kayıt bulunamadı",
+                    "oPaginate": {
+                        "sFirst": "İlk",
+                        "sLast": "Son",
+                        "sNext": "Sonraki",
+                        "sPrevious": "Önceki"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": artan sütun sıralamasını aktifleştir",
+                        "sSortDescending": ": azalan sütun sıralamasını aktifleştir"
+                    },
+                    "select": {
+                        "rows": {
+                            "_": "%d kayıt seçildi",
+                            "0": "",
+                            "1": "1 kayıt seçildi"
+                        }
+                    }
+                },
+                colReorder: true,
+                paging: false,
+                dom: 'Bfrtip',
+                "columns": [
+                    null,
+                    null,
+                    null,
+                    { "visible": false },
+                    { "visible": false },
+                    null,
+                    //null
+                ],
+                buttons: [
+                    {
+
+                        extend: 'excelHtml5',
+                        title: 'Hasta Listesi',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+
+                        extend: 'pdfHtml5',
+                        title: 'Hasta Listesi',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        text: 'Yazdır',
+                        extend: 'print',
+                        title: 'Hasta Listesi',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        text: 'Tablo Sütun Ayarla',
+                        extend: 'colvis',
+
+                    }
+                ],
+                columnDefs: [{
+                    targets: -1,
+                    visible: true,
+
+                }]
+
+            });
+
+             $('#min').datepicker({ onSelect: function () { table.draw(); }, dateFormat:'dd-mm-yy', changeMonth: true, changeYear: true });
+            $('#max').datepicker({ onSelect: function () { table.draw(); }, dateFormat:'dd-mm-yy', changeMonth: true, changeYear: true });
+
+            // Event listener to the two range filtering inputs to redraw on input
+            $('#min, #max').change(function () {
+                table.draw();
+            });
+
+            // Apply the filter
+            $("#patientList tfoot input").on('keyup change', function () {
+                table
+                    .column($(this).parent().index() + ':visible')
+                    .search(this.value)
+                    .draw();
+
+            });
+        });
+
+        $('#exampleModal').on('shown.bs.modal', function () {
+            $('#myInput').trigger('focus')
+        })
+    </script>
+
+}
+

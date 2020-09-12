@@ -1,0 +1,75 @@
+﻿@model BioForeignKit.Models.IndexViewModel
+@{
+    ViewBag.Title = "Manage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="alert-icon shadow-reset wrap-alert-b">
+                <div class="alert-title">
+                    <h2></h2>
+                </div>
+                <div class="alert alert-info alert-st-two" role="alert">
+                    <i class="fa fa-info-circle adminpro-inform admin-check-pro admin-check-pro-none" aria-hidden="true"></i>
+                    <p class="message-mg-rt message-alert-none"><h4><strong>Kullanıcı Ayarları</strong></h4></p>
+                </div>
+
+            </div>
+            <div class="hpanel">
+                <div class="panel-body">
+                    @using (Html.BeginForm("Index", "Manage", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="form-group">
+                            <div class="col-md-12">  @Html.Label("Email Değiştir:", new { @class = "control-label" })</div>
+                            <div class="col-md-12"> @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = Model.Email, title = "Email adresinizi değiştirebilrsiniz." })</div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-12">@Html.Label("Kullanıcı Adı Değiştir:", new { @class = "control-label" })  </div>
+                            <div class=" col-md-12"> <input class="form-control" type="text" name="UserName" value="@HttpContext.Current.User.Identity.Name" /></div>
+                           
+                            @*<text class="col-md-12" title="Kullanıcı adınızı değiştirebilrsiniz."  name="@Model.UserName" >@HttpContext.Current.User.Identity.Name</text>*@
+                            @*<div class="col-md-12"> @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder= HttpContext.Current.User.Identity.Name.ToString(), title = "Kullanıcı adınızı değiştirebilrsiniz." })</div>*@
+
+
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                @Html.Label("Rol Değiştir:", new { @class = "control-label" })
+                  
+                            </div>
+                            <div class="col-md-12">@Html.DropDownList("RoleId", null, htmlAttributes: new { @class = "form-control", id = "ChooseDiagnostic" })</div>
+
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-12"> <button type="submit" class="btn btn-success" style="margin-top:5px"><i class="fa fa-thumbs-up"></i>    Onayla</button></div>
+
+                            </div>
+                            <div class="form-group">
+
+
+                                @if (Model.HasPassword)
+                                {
+                                    <a href="@Url.Action("ChangePassword","Manage")" class="btn btn-success"><p style="color:white"><i class="fa fa-key"></i>  Şifre Değiştir</p></a>
+                                }
+                                else
+                                {
+                                    @Html.ActionLink("Create", "SetPassword")
+                                }
+                            </div>
+
+                            }
+
+                        </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

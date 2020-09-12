@@ -1,0 +1,59 @@
+﻿@model BioForeignKit.Models.DiagnosticViewModel
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-lg-12">
+    <a href="@Url.Action("Index","Diagnostics")" class="btn btn-warning" id="buttonWarning"><i class="fa fa-backward"></i>   Geri Dön</a>
+</div>
+
+
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="alert-icon shadow-reset wrap-alert-b">
+                                    <div class="alert-title">
+                                        <h2></h2>
+                                    </div>
+                                    <div class="alert alert-info alert-st-two" role="alert">
+                                        <i class="fa fa-info-circle adminpro-inform admin-check-pro admin-check-pro-none" aria-hidden="true"></i>
+                                        <p class="message-mg-rt message-alert-none"><h4><strong>Tanı Ekle</strong></h4></p>
+                                    </div>
+
+                                </div>
+                                <div class="hpanel">
+                                    <div class="panel-body">
+
+                                        @using (Html.BeginForm("Create", "Diagnostics", FormMethod.Post, new { @id = "loginForm" }))
+                                        {<div class="row">
+                                                @Html.AntiForgeryToken()
+                                                <div class="form-group col-lg-12">
+                                                    @ViewBag.mistakeSave
+                                                    <label>Tanı Adı:</label>
+                                                    @Html.TextBoxFor(m => m.DiagnosticName, new { @class = "form-control" })
+                                                    @Html.ValidationMessageFor(m => m.DiagnosticName, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="form-group col-lg-12">
+                                                    @ViewBag.mistakeSave
+                                                    <label>Tanı Tanımı:</label>
+                                                    @Html.TextAreaFor(m => m.Description, new { @class = "form-control" })
+                                                    @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="text-center">
+                                                    <button type="submit" class="btn btn-success">Kaydet</button>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    @section Scripts {
+                        @Scripts.Render("~/bundles/jqueryval")
+                    }

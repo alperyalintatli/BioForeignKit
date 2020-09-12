@@ -1,0 +1,189 @@
+﻿
+<style>
+    .btn-outline-success {
+        float: right;
+        margin-right: 5%;
+        background-color: yellow;
+    }
+    .notification{
+        color:greenyellow;
+        text-align:right;
+    }
+
+</style>
+
+<div class="header-top-area" >
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="header-top-wraper">
+                    <div class="row">
+
+                        <div class="col-lg-1 col-md-0 col-sm-1 col-xs-12">
+                            <div class="menu-switcher-pro">
+                                <button type="button" id="sidebarCollapse" class="btn bar-button-pro header-drl-controller-btn btn-info navbar-btn">
+                                    <i class="fa fa-bars"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-7 col-sm-6 col-xs-12"></div>
+                        <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12" >
+
+                            @if (Request.IsAuthenticated)
+                            {
+                                <div class="header-right-info">
+                                    <ul class="nav navbar-nav mai-top-nav header-right-menu">
+
+                                        <li class="nav-item">
+                                            <a href="#" data-toggle="dropdown" role="button" aria-expanded="true" class="nav-link dropdown-toggle">
+                                                <i class="fa fa-user adminpro-user-rounded header-riht-inf" aria-hidden="true"></i>
+                                                <span class="admin-name">Hoşgeldiniz! @HttpContext.Current.User.Identity.Name </span>
+                                                <i class="fa fa-angle-down adminpro-icon adminpro-down-arrow"></i>
+                                            </a>
+                                            <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated zoomIn">
+
+                                                <li>
+                                                    <a href="@Url.Action("Index","Manage")"><span class="fa fa-cog author-log-ic"></span>Ayarlar</a>
+                                                </li>
+                                                <li>
+                                                    @using (Html.BeginForm("LogOff", "Account", FormMethod.Post))
+                                                    {
+                                                        @Html.AntiForgeryToken()
+
+                                                        <button type="submit" class="btn btn-outline-success"> <span class="fa fa-lock author-log-ic"></span>Çıkış Yap</button>
+                                                    }
+
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                            }
+                            else
+                            {
+                                <div class="header-right-info">
+                                    <ul class="nav navbar-nav mai-top-nav header-right-menu">
+
+                                        <li class="nav-item">
+                                            <a href="@Url.Action("Login","Account")" title="Giriş Yap" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><i class="fa fa-sign-in" aria-hidden="true"></i><span class="indicator-ms"></span></a>
+                                            <div role="menu" class="author-message-top dropdown-menu animated zoomIn">
+
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            }
+
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- Mobile Menu start -->
+<div class="mobile-menu-area">
+
+    <div class="container mean-container">
+        <div class="mean-bar">
+            <a href="#nav" class="meanmenu-reveal" style="right: 0px; left: auto; text-align: center; text-indent: 0px; font-size: 18px;"><span></span><span></span><span></span></a><nav class="mean-nav">
+                <ul class="mobile-menu-nav" style="display: none;">
+                    <li>
+                        <a data-toggle="collapse" data-target="#Charts" href="@Url.Action("Index","Home")">Ana Sayfa <span class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
+                    </li>
+                    <li>
+                        <a data-toggle="collapse" data-target="#Charts" href="@Url.Action("Index","Patients")">Hasta <span class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
+                    </li>
+                    <li>
+                        <a data-toggle="collapse" data-target="#Charts" href="@Url.Action("Index","Role")">Rol <span class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
+                    </li>
+                    <li>
+                        <a data-toggle="collapse" data-target="#Charts" href="@Url.Action("Index","Nationality")">Uyruk <span class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
+                    </li>
+                    <li>
+                        <a data-toggle="collapse" data-target="#Charts" href="@Url.Action("Index","Diagnostics")">Tanı <span class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
+                    </li>
+                    <li>
+                        <a data-toggle="collapse" data-target="#Charts" href="@Url.Action("Register","Account")">Kullanıcı Kayıt <span class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
+
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="mobile-menu">
+                    <div class="mean-push"></div><nav id="dropdown" style="display: none;">
+                        <ul class="mobile-menu-nav">
+                            <li>
+                                <a data-toggle="collapse" data-target="#Charts" href="@Url.Action("Index","Home")">Ana Sayfa <span class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
+                            </li>
+
+                            <li>
+                                <a data-toggle="collapse" data-target="#Charts" href="@Url.Action("Index","Patients")">Hasta <span class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
+                            </li>
+                            <li>
+                                <a data-toggle="collapse" data-target="#Charts" href="@Url.Action("Index","Role")">Rol <span class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
+                            </li>
+                            <li>
+                                <a data-toggle="collapse" data-target="#Charts" href="@Url.Action("Index","Nationality")">Uyruk <span class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
+                            </li>
+                            <li>
+                                <a data-toggle="collapse" data-target="#Charts" href="@Url.Action("Index","Diagnostics")">Tanı <span class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
+                            </li>
+                            <li>
+                                <a data-toggle="collapse" data-target="#Charts" href="@Url.Action("Register","Account")">Kullanıcı Kayıt <span class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Mobile Menu end -->
+<div class="breadcome-area">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="breadcome-list">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            <div class="breadcome-heading">
+                               
+                                <h6 class="notification" >@TempData["successAddedDoctorComment"]</h6>
+                                <h6 class="notification">@TempData["successPatientMailToDoctor"]</h6>
+                                <h6 class="notification">@TempData["successUpdatePassword"]</h6>
+                                <h6 class="notification">@TempData["successUpdateEmail"]</h6>
+                                <h6 class="notification">@TempData["successRoleCreate"]</h6>
+                                <h6 class="notification">@TempData["successRoleEdit"]</h6>
+                                <h6 class="notification">@TempData["successRoleDelete"]</h6>
+                                <h6 class="notification">@TempData["successNationalityDelete"]</h6>
+                                <h6 class="notification">@TempData["successNationalityEdit"]</h6>
+                                <h6 class="notification">@TempData["successNationalityRegister"]</h6>
+                                <h6 class="notification">@TempData["successDiagnosticDelete"]</h6>
+                                <h6 class="notification">@TempData["successDiagnosticEdit"]</h6>
+                                <h6 class="notification">@TempData["successDiagnosticAdd"]</h6>
+                                <h6 class="notification">@TempData["successPatientDelete"]</h6>
+                                <h6 class="notification">@TempData["successPatientEdit"]</h6>
+                                <h6 class="notification">@TempData["successPatientRegister"]</h6>
+                                <h6 class="notification">@TempData["successRegister"]</h6>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*</div>*@

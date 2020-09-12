@@ -1,0 +1,166 @@
+﻿@model BioForeignKit.Models.Patients
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section styles {
+    <link href="~/Content/Choosen/chosen.min.css" rel="stylesheet" />
+    <link href="~/Content/css/jquery-ui.min.css" rel="stylesheet" />
+}
+<div class="col-lg-12">
+    <a href="@Url.Action("Index", "Patients")" class="btn btn-warning"><i class="fa fa-backward"></i>  Geri Dön</a>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="alert-icon shadow-reset wrap-alert-b">
+                <div class="alert-title">
+                    <h2></h2>
+                </div>
+                <div class="alert alert-info alert-st-two" role="alert">
+                    <i class="fa fa-info-circle adminpro-inform admin-check-pro admin-check-pro-none" aria-hidden="true"></i>
+                    <p class="message-mg-rt message-alert-none"><h4><strong>Hasta Düzenle</strong></h4></p>
+                </div>
+
+            </div>
+            <div class="hpanel">
+                <div class="panel-body">
+                    @using (Html.BeginForm("Edit", "Patients", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group col-lg-12">
+                            @Html.Label("İsim:", htmlAttributes: new { @class = "control-label col-md-12" })
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+
+                            </div>
+                        </div>
+
+                        <div class="form-group col-lg-12">
+                            @Html.Label("Soyisim:", htmlAttributes: new { @class = "control-label col-md-12" })
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.Surname, new { htmlAttributes = new { @class = "form-control" } })
+
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-12">
+                            @Html.Label("Doğum Tarihi:", htmlAttributes: new { @class = "control-label col-md-12" })
+                            <div class="col-md-12">
+                                <input type="date" class="form-control" value="@Model.Birthdate" name="Birthdate" />
+                            </div>
+                        </div>
+                        if (Model.IsActive==true)
+                        {
+                            <div class="form-group col-lg-12">
+                                @Html.Label("Hasta Kayıt Tarihi:", htmlAttributes: new { @class = "control-label col-md-12" })
+                                <div class="col-md-12">
+                                    <input type="date" class="form-control" value="@Model.IncomingPatientDate" name="IncomingPatientDate" />
+                                </div>
+                            </div>
+                        }
+
+                        <div class="form-group col-lg-12">
+                            @Html.Label("Tanı:", htmlAttributes: new { @class = "control-label col-md-12" })
+                            <div class="col-md-12">
+
+
+                                @Html.DropDownList("DiagnosticId", null, htmlAttributes: new { @class = "form-control", id = "ChooseDiagnostic" })
+                                @Html.ValidationMessageFor(model => model.DiagnosticId, "", new { @class = "text-danger" })
+                            </div>
+
+                        </div>
+                        <div class="form-group col-lg-12">
+                            @Html.Label("Uyruk:", htmlAttributes: new { @class = "control-label col-md-12" })
+                            <div class="col-md-12">
+                                @Html.DropDownList("NationalityId", null, htmlAttributes: new { @class = "form-control", id = "ChooseNationality" })
+                                @Html.ValidationMessageFor(model => model.NationalityId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group col-lg-12">
+                            @Html.Label("Cinsiyet:", htmlAttributes: new { @class = "control-label col-md-12" })
+                            <div class="col-md-12">
+                                @Html.DropDownList("GenderId", null, htmlAttributes: new { @class = "form-control", id = "ChooseGender" })
+                                @Html.ValidationMessageFor(model => model.GenderId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group col-lg-12">
+                            @Html.Label("Klinik Yorum:", htmlAttributes: new { @class = "control-label col-md-12" })
+                            <div class="col-md-12">
+                                @Html.TextAreaFor(model => model.ClinicComment, 5, 20, htmlAttributes: new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-12">
+                            @Html.Label("Doktor Yorumu:", htmlAttributes: new { @class = "control-label col-md-12" })
+                            <div class="col-md-12">
+                                @Html.TextAreaFor(model => model.DoctorComment, 5, 20, htmlAttributes: new { @class = "form-control" })
+                            </div>
+                        </div>
+                        @Html.HiddenFor(model => model.UserId)
+                        @Html.HiddenFor(model => model.RoleId)
+                        <div class="form-group col-lg-12">
+                            <div class="col-md-offset-2 col-md-10">
+                                <button type="submit" class="btn btn-success" style="float:right"><i class="fa big-icon fa-child icon-wrap"></i>     Güncelle</button>
+                            </div>
+                        </div>
+
+
+                    }
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    <script src="~/Scripts/chosen.jquery.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(function () {
+            $("#ChooseDiagnostic").chosen({
+                no_results_text: "Aradığınız kelime bulunamadı!",
+                width: "100%",
+                search_contains: true,
+            });
+        });
+
+        $(function () {
+            $("#ChooseNationality").chosen({
+                no_results_text: "Aradığınız kelime bulunamadı!",
+                width: "100%",
+                search_contains: true,
+            });
+        });
+
+        $(function () {
+            $("#ChooseGender").chosen({
+                no_results_text: "Aradığınız kelime bulunamadı!",
+                width: "100%",
+                search_contains: true,
+            });
+        });
+
+        $(function () {
+            $("#ChooseMutation").chosen({
+                no_results_text: "Aradığınız kelime bulunamadı!",
+                width: "100%",
+                search_contains: true,
+            });
+        });
+
+          
+    </script>
+}

@@ -1,0 +1,94 @@
+﻿@model BioForeignKit.Models.SendCodeViewModel
+@{
+    ViewBag.Title = "Send";
+}
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Şifre Yenileme | Yabancı Hasta KİT</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- favicon
+        ============================================ -->
+    <link rel="shortcut icon" type="image/x-icon" href="/Content/img/favicon.ico">
+
+    <!-- Bootstrap CSS
+        ============================================ -->
+    <link rel="stylesheet" href="/Content/css/bootstrap.min.css">
+
+
+</head>
+
+<body>
+    <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"></div>
+                        <div class="col-md-4 col-md-4 col-sm-4 col-xs-12">
+                            <div class="text-center m-b-md custom-login">
+
+                                <h3>Şifre Yenileme</h3>
+                                <p>Giriş yapabilmek için Kod Gönder</p>
+
+                            </div>
+                            <div class="hpanel">
+                                <div class="panel-body">
+                                    @using (Html.BeginForm("SendCode", "Account", new { ReturnUrl = Model.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        @Html.Hidden("rememberMe", @Model.RememberMe)
+
+                                    <div class="form-group">
+                                    
+                                        @Html.DropDownListFor(model => model.SelectedProvider, Model.Providers, new { style = "display:none;" })
+                                    </div>
+                                      <div class="form-group">
+                                                              
+
+                                                                <button type="submit" class="btn btn-success btn-block loginbtn">Kod Gönder</button>
+                                                            </div>
+                                    
+                                    }
+
+
+
+                                </div>
+                            </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"></div>
+                            </div>
+
+                        </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+
+
+
+
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

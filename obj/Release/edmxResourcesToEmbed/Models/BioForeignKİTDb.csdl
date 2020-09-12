@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BioForeignKİTDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Diagnostics">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DiagnosticName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="RegisterDate" Type="DateTime" Precision="0" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Patients" Relationship="BioForeignKİTDbModel.FK_Patients_Diagnostics" FromRole="Diagnostics" ToRole="Patients" />
+  </EntityType>
+  <EntityType Name="Genders">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="GenderName" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Patients" Relationship="BioForeignKİTDbModel.FK_Patients_Genders" FromRole="Genders" ToRole="Patients" />
+  </EntityType>
+  <EntityType Name="Nationalities">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nationality" Type="String" MaxLength="90" FixedLength="false" Unicode="false" />
+    <Property Name="RegisterDate" Type="DateTime" Precision="0" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Patients" Relationship="BioForeignKİTDbModel.FK_Patients_Nationalities" FromRole="Nationalities" ToRole="Patients" />
+  </EntityType>
+  <EntityContainer Name="BioForeignKİTDbEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Diagnostics" EntityType="Self.Diagnostics" />
+    <EntitySet Name="Genders" EntityType="Self.Genders" />
+    <EntitySet Name="Nationalities" EntityType="Self.Nationalities" />
+    <EntitySet Name="AspNetUsers" EntityType="BioForeignKİTDbModel.AspNetUsers" />
+    <EntitySet Name="AspNetRoles" EntityType="BioForeignKİTDbModel.AspNetRoles" />
+    <AssociationSet Name="AspNetUserRoles" Association="BioForeignKİTDbModel.AspNetUserRoles">
+      <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+    </AssociationSet>
+    <EntitySet Name="Patients" EntityType="BioForeignKİTDbModel.Patients" />
+    <AssociationSet Name="FK_Patients_Diagnostics" Association="BioForeignKİTDbModel.FK_Patients_Diagnostics">
+      <End Role="Diagnostics" EntitySet="Diagnostics" />
+      <End Role="Patients" EntitySet="Patients" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Patients_Genders" Association="BioForeignKİTDbModel.FK_Patients_Genders">
+      <End Role="Genders" EntitySet="Genders" />
+      <End Role="Patients" EntitySet="Patients" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Patients_Nationalities" Association="BioForeignKİTDbModel.FK_Patients_Nationalities">
+      <End Role="Nationalities" EntitySet="Nationalities" />
+      <End Role="Patients" EntitySet="Patients" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="AspNetUsers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+    <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+    <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetRoles" Relationship="BioForeignKİTDbModel.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+  </EntityType>
+  <EntityType Name="AspNetRoles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="Discriminator" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUsers" Relationship="BioForeignKİTDbModel.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
+  </EntityType>
+  <Association Name="AspNetUserRoles">
+    <End Type="BioForeignKİTDbModel.AspNetRoles" Role="AspNetRoles" Multiplicity="*" />
+    <End Type="BioForeignKİTDbModel.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
+  </Association>
+  <EntityType Name="Patients">
+    <Key>
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="RoleId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="DiagnosticId" Type="Int32" Nullable="false" />
+    <Property Name="NationalityId" Type="Int32" Nullable="false" />
+    <Property Name="GenderId" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Surname" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="ClinicComment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="DoctorComment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="DoctorCommentDate" Type="DateTime" Precision="0" />
+    <Property Name="DiagnosticDate" Type="DateTime" Precision="0" />
+    <Property Name="Birthdate" Type="DateTime" Precision="0" />
+    <Property Name="RegisterDate" Type="DateTime" Precision="0" />
+    <Property Name="IncomingPatientDate" Type="DateTime" Precision="0" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Diagnostics" Relationship="BioForeignKİTDbModel.FK_Patients_Diagnostics" FromRole="Patients" ToRole="Diagnostics" />
+    <NavigationProperty Name="Genders" Relationship="BioForeignKİTDbModel.FK_Patients_Genders" FromRole="Patients" ToRole="Genders" />
+    <NavigationProperty Name="Nationalities" Relationship="BioForeignKİTDbModel.FK_Patients_Nationalities" FromRole="Patients" ToRole="Nationalities" />
+  </EntityType>
+  <Association Name="FK_Patients_Diagnostics">
+    <End Type="BioForeignKİTDbModel.Diagnostics" Role="Diagnostics" Multiplicity="1" />
+    <End Type="BioForeignKİTDbModel.Patients" Role="Patients" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Diagnostics">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Patients">
+        <PropertyRef Name="DiagnosticId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Patients_Genders">
+    <End Type="BioForeignKİTDbModel.Genders" Role="Genders" Multiplicity="1" />
+    <End Type="BioForeignKİTDbModel.Patients" Role="Patients" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Genders">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Patients">
+        <PropertyRef Name="GenderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Patients_Nationalities">
+    <End Type="BioForeignKİTDbModel.Nationalities" Role="Nationalities" Multiplicity="1" />
+    <End Type="BioForeignKİTDbModel.Patients" Role="Patients" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Nationalities">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Patients">
+        <PropertyRef Name="NationalityId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
